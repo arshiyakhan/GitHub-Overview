@@ -17,7 +17,7 @@ jobs:
        who-to-greet: 'Arshiya'
    - name: time
      run: |
-      echo "the time of greeting is at ${{steps.greetings.output.time}}"
+      echo "the time of greeting is at ${{ steps.greetings.output.time }}"
    
  secondjob:
   runs-on: ubuntu-latest
