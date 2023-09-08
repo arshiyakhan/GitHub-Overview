@@ -2,6 +2,12 @@ name: first workflow
 on:
  workflow_dispatch:
 jobs:
+ firstjob:
+  runs-on: ubuntu-latest
+  steps:
+   - name: firstJob script
+     shell: bash
+     run: echo Hello World! This is the first job
  secondjob:
   runs-on: ubuntu-latest
   steps:
