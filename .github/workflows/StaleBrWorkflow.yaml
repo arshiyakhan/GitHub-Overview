@@ -21,6 +21,7 @@ jobs:
             stale_branches="$stale_branches $branch_name"
           fi
         done
+        echo "$stale_branhces"
         echo ":: set-output name=stale_branches::$stale_branches"
     - name: Create issues for stale branches
       run: |
