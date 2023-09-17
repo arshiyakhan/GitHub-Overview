@@ -22,7 +22,7 @@ jobs:
           fi
         done
         echo "aa: $stale_branches"
-        echo ":: set-output name=stale_branches::$stale_branches"
+        echo ":: set-output name=stale_branches::NewBranchForSt"
     - name: Create issues for stale branches
       if: steps.stale-branches.outputs.stale_branches != ''
       run: |
