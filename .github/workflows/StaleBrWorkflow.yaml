@@ -1,9 +1,8 @@
 name: Stale branch Workflow
 on:
  workflow_dispatch:
-
 jobs:
-  scab-br:
+  scan-br:
     runs-on: ubuntu-latest
 
     steps:
