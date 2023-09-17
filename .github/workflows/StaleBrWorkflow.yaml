@@ -24,6 +24,14 @@ jobs:
         done
         echo "aa: $stale_branches"
         echo ":: set-output name=stale_branches::$stale_branches"
+        echo " $stable_branches" > aa.txt
+    - name: Create issues for stale branches 1
+      run: |
+       while read -r branch; do
+        echo "Creating issue for stale branch: $branch"
+        body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
+        gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee arshiyakhan --labels "stale"
+       done < aa.txt
     - name: Create issues for stale branches
       run: |
        echo "got it: $steps.stale-branches.outputs.stale_branches"
