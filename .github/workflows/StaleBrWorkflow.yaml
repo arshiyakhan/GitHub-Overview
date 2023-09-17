@@ -25,9 +25,10 @@ jobs:
         echo "aa: $stale_branches"
         echo ":: set-output name=stale_branches::$stale_branches"
     - name: Create issues for stale branches
-      if: steps.stale-branches.output.stale_branches != ''
+      if: steps.stale-branches.outputs.stale_branches != ''
       run: |
-       for branch in ${{ steps.stale-branches.output.stale_branches }}; do
+       echo "got it: $steps.stale-branches.outputs.stale_branches"
+       for branch in ${{ steps.stale-branches.outputs.stale_branches }}; do
         echo "Creating issue for stale branch: $branch"
         body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
         gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee arshiyakhan --labels "stale"
