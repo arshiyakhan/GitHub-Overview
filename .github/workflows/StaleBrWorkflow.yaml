@@ -25,7 +25,6 @@ jobs:
         echo "aa: $stale_branches"
         echo ":: set-output name=stale_branches::$stale_branches"
     - name: Create issues for stale branches
-      if: steps.stale-branches.outputs.stale_branches != ''
       run: |
        echo "got it: $steps.stale-branches.outputs.stale_branches"
        for branch in ${{ steps.stale-branches.outputs.stale_branches }}; do
