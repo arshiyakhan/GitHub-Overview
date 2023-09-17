@@ -16,7 +16,7 @@ jobs:
       run: |
         git fetch --prune
         stale_branches=''
-        threshold="30 days"
+        threshold="1 hour"
         for branch in $(git for-eacg-ref --format '%(refname:short) %(commiterdate:short)' refs/heads/*); do
           branch_name=$(echo "$branch" | awk '{print $2}')
           last_commit_date=$(echo "$branch"  | awk '{print $2}')
