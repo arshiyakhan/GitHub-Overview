@@ -23,7 +23,7 @@ jobs:
         done
         echo ":: set-output name=stale_branches::$stale_branches"
     - name: Create issues for stale branches
-      if: steps.stale_branches.outputs.stale_branches != ''
+      if: steps.stale-branches.outputs.stale_branches != ''
       run: |
        for branch in ${{ steps.stale-branches.outputs.stale_branches }}; do
         echo "Creating issue for stale branch: $branch"
