@@ -20,7 +20,7 @@ jobs:
           last_commit_date=$(echo "$branch"  | awk '{print $2}')
           if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
             stale_branches="$stale_branches $branch_name"
-          if
+          fi
         done
         echo ":: set-output name=stale_branches::$stale_branches"
     - name: Create issues for stale branches
