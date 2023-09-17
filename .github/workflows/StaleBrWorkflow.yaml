@@ -14,7 +14,7 @@ jobs:
         git fetch --prune
         stale_branches=''
         threshold="1 hour"
-        for branch in $(git for-each-ref --format '%(refname:short) %(committerdate:relative)' refs/heads/*); do
+        for branch in $(git for-each-ref --format '%(refname:short) %(committerdate:relative)' refs/*); do
           branch_name=$(echo "$branch" | awk '{print $1}')
           last_commit_date=$(echo "$branch"  | awk '{print $2}')
           if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
