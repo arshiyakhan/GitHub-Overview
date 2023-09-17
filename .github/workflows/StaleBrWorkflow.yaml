@@ -23,13 +23,16 @@ jobs:
           if
         done
         echo ":: set-output name=stale_branches::$stale_branches"
-  - name: Create issues for stale branches
-    if: steps.stale_branches.outputs.stale_branches != ''
-    run: |
-      for branch in ${{ setps.stale-branches.outputs.stale_branches }}; do
+    - name: Create issues for stale branches
+      if: steps.stale_branches.outputs.stale_branches != ''
+      run: |
+       for branch in ${{ setps.stale-branches.outputs.stale_branches }}; do
         echo "Creating issue for stale branch: $branch"
         body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
         gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee arshiyakhan --lables "stale"
-      done
+       done
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        
+     
