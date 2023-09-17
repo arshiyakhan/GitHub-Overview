@@ -13,7 +13,7 @@ jobs:
       run: |
         git fetch --prune
         stale_branches=''
-        threshold="1 mins"
+        threshold="1 secs"
         for branch in $(git for-each-ref --format '%(refname:short) %(committerdate:relative)' refs/heads/*); do
           branch_name=$(echo "$branch" | awk '{print $1}')
           last_commit_date=$(echo "$branch"  | awk '{print $2}')
@@ -27,7 +27,7 @@ jobs:
     - name: Create issues for stale branches
       if: steps.stale-branches.outputs.stale_branches != ''
       run: |
-       for branch in ${{ steps.stale-branches.outputs.stale_branches }}; do
+       for branch in ${{ steps.stale-branches.output.stale_branches }}; do
         echo "Creating issue for stale branch: $branch"
         body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
         gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee arshiyakhan --labels "stale"
