@@ -38,7 +38,7 @@ jobs:
        for branch in ${{ steps.stale-branches.outputs.stale_branches }}; do
         echo "Creating issue for stale branch: $branch"
         body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
-        gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee "@me" --label "stale"
+        gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee "@me" --label "bug"
        done
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
