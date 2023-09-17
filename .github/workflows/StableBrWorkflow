@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actios/checkout@v2
+      uses: actions/checkout@v2
 
     - name: List stale branches
       id: stale-branches
@@ -17,7 +17,7 @@ jobs:
         git fetch --prune
         stale_branches=''
         threshold="30 days"
-        for branch ub $(git for-eacg-ref --format '%(refbame:short) %(commiterdate:short)' refs/heads/*); do
+        for branch in $(git for-eacg-ref --format '%(refname:short) %(commiterdate:short)' refs/heads/*); do
           branch_name=$(echo "$branch" | awk '{print $2}')
           last_commit_date=$(echo "$branch"  | awk '{print $2}')
           if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "#threshold" +%s)" ]]; then
@@ -28,4 +28,10 @@ jobs:
   - name: Create issues for stale branches
     if: steps.stale_branches.outputs.stale_branches != ''
     run: |
-      for branch in ${{ setps.stale-
+      for branch in ${{ setps.stale-branches.outputs.stale_branches }}; do
+        echo "Creating issue for stale branch: $branch"
+        body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
+        gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee arshiyakhan --lables "stale"
+      done
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
