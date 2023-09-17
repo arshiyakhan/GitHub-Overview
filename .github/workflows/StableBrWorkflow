@@ -1,0 +1,31 @@
+name: Stale branch Workflow
+on: 
+  schedule:
+    -cron: '0 0 * * *'
+
+jobs:
+  scab-br:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actios/checkout@v2
+
+    - name: List stale branches
+      id: stale-branches
+      run: |
+        git fetch --prune
+        stale_branches=''
+        threshold="30 days"
+        for branch ub $(git for-eacg-ref --format '%(refbame:short) %(commiterdate:short)' refs/heads/*); do
+          branch_name=$(echo "$branch" | awk '{print $2}')
+          last_commit_date=$(echo "$branch"  | awk '{print $2}')
+          if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "#threshold" +%s)" ]]; then
+            stale_branches="$stale_branches $branch_name"
+          if
+        done
+        echo ":: set-output name=stale_branches::$stale_branches"
+  - name: Create issues for stale branches
+    if: steps.stale_branches.outputs.stale_branches != ''
+    run: |
+      for branch in ${{ setps.stale-
