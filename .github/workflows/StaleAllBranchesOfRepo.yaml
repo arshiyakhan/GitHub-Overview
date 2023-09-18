@@ -19,7 +19,7 @@ jobs:
           all_branches="$all_branches $branch_name"
           echo "i=$all_branches"
         done
-        echo "aa: $all_branches
+        echo "aa: $all_branches"
         echo " $all_branches" > aa.txt
     - name: Create issues for stale branches 1
       run: |
