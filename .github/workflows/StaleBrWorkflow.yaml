@@ -24,7 +24,7 @@ jobs:
         done
         echo "aa: $stale_branches"
         echo ":: set-output name=stale_branches::$stale_branches"
-        echo " $stable_branches" > aa.txt
+        echo " $stale_branches" > aa.txt
     - name: Create issues for stale branches 1
       run: |
        while read -r branch; do
