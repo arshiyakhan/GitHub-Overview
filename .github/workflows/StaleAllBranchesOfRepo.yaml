@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-    - name: List stale branches
+    - name: List and tag stale branches
       id: stale-branches
       run: |
         git fetch --prune
@@ -26,23 +26,7 @@ jobs:
          fi
          echo "$branch_name" >> aa.txt
         done
-        
-    - name: Create issues for stale branches 1
-      run: |
-       stale_branches=''
-       threshold="1 secs"
-       git fetch --prune
-       while read -r branch; do
-        echo "Checking if its main: $branch"
-        if [ "$branch" != "main" ]; then
-         last_commit_date=$(git log -n 1 --format="%cd" --date=iso "refs/heads/$branch")
-         if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
-          echo "Creating issue for stale branch: $branch"
-          body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
-          gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee "arshiyakhan" --label "stale"
-         fi
-        fi
-       done < aa.txt
+
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
