@@ -1,8 +1,8 @@
-name: Stale branch Workflow
+name: All Stale branch Workflow
 on:
  workflow_dispatch:
 jobs:
-  scan-br:
+  all-scan-br:
     runs-on: ubuntu-latest
 
     steps:
