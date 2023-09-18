@@ -17,7 +17,7 @@ jobs:
           branch_name=$(echo "$branch" | awk '{print $1}')
           echo "branch_name=$branch_name"
  
-          if [[ "$branch_name" != "main" && "$branch_name" != "origin/main/" && "$branch_name" != "refs/heads/*" ]]; then
+          if [[ "$branch_name" != "main" && "$branch_name" != "origin/main" && "$branch_name" != "refs/heads/*" ]]; then
            last_commit_date=$(git log -n 1 --format="%cd" --date=iso "$branch_name")
             if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
              echo "Creating issue for stale branch: $branch_name"
