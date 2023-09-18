@@ -29,7 +29,7 @@ jobs:
          if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
           echo "Creating issue for stale branch: $branch"
           body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
-          gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee "arshiyakhan" --label "bug"
+          gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee "arshiyakhan" --label "stale"
          fi
         fi
        done < aa.txt
