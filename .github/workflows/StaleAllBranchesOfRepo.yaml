@@ -22,6 +22,7 @@ jobs:
       run: |
        stale_branches=''
        threshold="1 secs"
+       git fetch --prune
        while read -r branch; do
         echo "Checking if its main: $branch"
         if [ "$branch" != "main" ]; then
