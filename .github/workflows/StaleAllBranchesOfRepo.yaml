@@ -28,7 +28,7 @@ jobs:
        while read -r branch; do
         echo "Checking if its main"
         if [ "$branch" != "main" ]; then
-         last_commit_date=$(git log -n 1 --format=%cd" --date=iso "refs/heads/$branch")
+         last_commit_date=$(git log -n 1 --format="%cd" --date=iso "refs/heads/$branch")
          if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
           stale_branches="$stale_branches $branch"
           echo "Creating issue for stale branch: $branch"
