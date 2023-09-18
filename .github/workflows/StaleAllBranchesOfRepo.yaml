@@ -12,22 +12,18 @@ jobs:
       id: stale-branches
       run: |
         git fetch --prune
-        all_branches=''
         for branch in $(git for-each-ref --format '%(refname:short) refs/heads/*'); do
           branch_name=$(echo "$branch" | awk '{print $1}')
           echo "branch_name=$branch_name"
-          all_branches="$all_branches $branch_name"
-          echo "i=$all_branches"
           echo "$branch_name" >> aa.txt
         done
-        echo "aa: $all_branches"
         
     - name: Create issues for stale branches 1
       run: |
        stale_branches=''
        threshold="1 secs"
        while read -r branch; do
-        echo "Checking if its main"
+        echo "Checking if its main: $branch"
         if [ "$branch" != "main" ]; then
          last_commit_date=$(git log -n 1 --format="%cd" --date=iso "refs/heads/$branch")
          if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
