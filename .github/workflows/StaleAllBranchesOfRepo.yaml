@@ -18,9 +18,10 @@ jobs:
           echo "branch_name=$branch_name"
           all_branches="$all_branches $branch_name"
           echo "i=$all_branches"
+          echo "$branch_name" >> aa.txt
         done
         echo "aa: $all_branches"
-        echo " $all_branches" > aa.txt
+        
     - name: Create issues for stale branches 1
       run: |
        stale_branches=''
@@ -30,12 +31,12 @@ jobs:
         if [ "$branch" != "main" ]; then
          last_commit_date=$(git log -n 1 --format="%cd" --date=iso "refs/heads/$branch")
          if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
-          stale_branches="$stale_branches $branch"
           echo "Creating issue for stale branch: $branch"
           body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
           gh issue create --title "Stale Branch: $branch" --body "$body"  --assignee "arshiyakhan" --label "bug"
          fi
         fi
        done < aa.txt
-
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
