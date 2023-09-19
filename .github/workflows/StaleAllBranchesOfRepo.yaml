@@ -20,6 +20,7 @@ jobs:
           if [[ "$branch_name" != "main" && "$branch_name" != "origin/main" && "$branch_name" != "refs/heads/*" ]]; then
            last_commit_date=$(git log -n 1 --format="%cd" --date=iso "$branch_name")
            echo "cc:$last_commit_date"
+           echo "$(date -d "$threshold" +%s)"
             if [[ "$(date -d "$last_commit_date" +%s)" -lt "$(date -d "$threshold" +%s)" ]]; then
              echo "Creating issue for stale branch: $branch_name"
              body=" This branch is stale and may no longer be needed, Please review and consider deleting it"
