@@ -21,7 +21,7 @@ jobs:
            last_commit_date=$(git log -n 1 --format="%cd" --date=iso "$branch_name")
            echo "cc:$last_commit_date"
            current_date=$(date --date=iso)
-           echo "cd: $current_date"
+           echo "cd:$current_date"
            cdd=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
            echo $ccd
            echo $threshold
