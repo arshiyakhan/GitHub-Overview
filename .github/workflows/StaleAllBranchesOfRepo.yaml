@@ -20,7 +20,7 @@ jobs:
           if [[ "$branch_name" != "main" && "$branch_name" != "origin/main" && "$branch_name" != "refs/heads/*" ]]; then
            last_commit_date=$(git log -n 1 --format="%cd" --date=iso "$branch_name")
            echo "cc:$last_commit_date"
-           cdd=$(date)
+           cdd=$date
            echo $ccd
            echo $(ccd -u +"%Y -%m -%dT%H:%M:%SZ")
            echo $threshold
