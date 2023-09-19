@@ -22,7 +22,7 @@ jobs:
            echo "cc:$last_commit_date"
            cdd=$(date)
            echo "ccd:$ccd"
-           echo $(date)
+           echo $(date --date=iso)
       
            
            echo $threshold
